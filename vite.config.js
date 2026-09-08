@@ -10,10 +10,19 @@ import { seo } from './src/data/seo.js'
  *   - robots.txt e sitemap.xml
  *   - o CNAME, quando for domínio próprio
  *
- * Domínio próprio:      SITE_URL=https://lojinhapronta.com.br
- * Pages de projeto:     SITE_URL=https://okaiquemota.github.io/lojinhapronta
+ * Na Vercel não precisa configurar nada: o próprio build expõe
+ * VERCEL_PROJECT_PRODUCTION_URL, e é dele que saem canonical e og:image
+ * enquanto o domínio próprio não existir.
+ *
+ * Domínio próprio:  SITE_URL=https://lojinhapronta.com.br
+ * Subcaminho:       SITE_URL=https://usuario.github.io/lojinhapronta
  */
-const SITE_URL = (process.env.SITE_URL || marca.dominio).replace(/\/+$/, '')
+const urlDaVercel = process.env.VERCEL_PROJECT_PRODUCTION_URL
+const SITE_URL = (
+  process.env.SITE_URL ||
+  (urlDaVercel && `https://${urlDaVercel}`) ||
+  marca.dominio
+).replace(/\/+$/, '')
 const { origin, pathname } = new URL(`${SITE_URL}/`)
 const BASE = pathname // '/' no domínio próprio, '/lojinhapronta/' no Pages de projeto
 const ehDominioProprio = !origin.endsWith('.github.io')
@@ -113,12 +122,12 @@ function seoEArquivosDeRaiz() {
 `
       )
 
-      // O GitHub Pages precisa do CNAME pra servir o domínio próprio com HTTPS.
-      if (ehDominioProprio) emitir('CNAME', `${new URL(SITE_URL).hostname}\n`)
-
-      // Impede o Jekyll de comer pastas que comecem com _ se um dia o deploy
-      // passar a ser por branch em vez de Actions.
-      emitir('.nojekyll', '')
+      // Só o GitHub Pages usa esses dois. A Vercel os ignora, então não vão
+      // pro dist quando o build roda lá.
+      if (!urlDaVercel) {
+        if (ehDominioProprio) emitir('CNAME', `${new URL(SITE_URL).hostname}\n`)
+        emitir('.nojekyll', '')
+      }
     },
   }
 }

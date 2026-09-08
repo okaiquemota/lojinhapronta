@@ -70,43 +70,33 @@ analytics existe.
 
 ## Deploy
 
-O endereço de publicação vive numa variável só: **`SITE_URL`**. Ela define de uma
-vez o `base` dos assets, o canonical, as tags de compartilhamento, o
-`robots.txt`, o `sitemap.xml` e o `CNAME`. Não existe URL escrita à mão em
-lugar nenhum — trocar de domínio é trocar essa variável.
+Vercel, ligada ao repositório: cada push no branch de produção publica sozinho.
 
-```bash
-npm run build                                           # usa marca.dominio
-SITE_URL=https://okaiquemota.github.io/lojinhapronta npm run build
-```
+O endereço vive numa variável só, **`SITE_URL`**, que define de uma vez o `base`
+dos assets, o canonical, as tags de compartilhamento, o `robots.txt` e o
+`sitemap.xml`. Não existe URL escrita à mão em lugar nenhum.
 
-### GitHub Pages (configurado)
-
-`.github/workflows/deploy.yml` publica a cada push no **branch padrão** do
-repositório — o job se guia pelo `default_branch`, então funciona com qualquer
-nome de branch.
-
-Pra ligar: **Settings → Pages → Source: GitHub Actions**. O repositório precisa
-ser público (Pages em repositório privado exige plano pago).
-
-Sem configurar mais nada, o site sai em
-`https://okaiquemota.github.io/lojinhapronta/` e o build já ajusta o caminho dos
-assets e as URLs absolutas sozinho.
+Na Vercel não precisa configurar nada: sem `SITE_URL`, o build usa a
+`VERCEL_PROJECT_PRODUCTION_URL` que a própria plataforma expõe, então o preview
+do link no WhatsApp já funciona no endereço `.vercel.app`.
 
 Quando o domínio próprio estiver registrado:
 
-1. **Settings → Secrets and variables → Actions → Variables**, criar
-   `SITE_URL = https://lojinhapronta.com.br`
-2. **Settings → Pages → Custom domain**, apontar o domínio (o `CNAME` já é
-   gerado pelo build)
-3. No Registro.br, criar os registros `A` do apex pros IPs do GitHub Pages e um
-   `CNAME` de `www` pra `okaiquemota.github.io`
-4. Marcar **Enforce HTTPS** depois que o certificado for emitido
+1. No painel da Vercel, **Settings → Domains**, adicionar `lojinhapronta.com.br`
+2. No Registro.br, apontar o DNS pros registros que a Vercel mostrar
+3. Em **Settings → Environment Variables**, criar
+   `SITE_URL = https://lojinhapronta.com.br` e publicar de novo
 
-### Vercel
+O passo 3 é o que faz canonical, `og:image`, `robots.txt` e `sitemap.xml`
+passarem a apontar pro domínio novo. Sem ele o site funciona, mas continua se
+anunciando pro Google e pro WhatsApp no endereço antigo.
 
-Também funciona sem mudar nada: detecta Vite sozinho, build `npm run build`,
-saída `dist`. Defina `SITE_URL` nas variáveis de ambiente do projeto.
+### Build local
+
+```bash
+npm run build                                      # usa marca.dominio
+SITE_URL=https://exemplo.com.br npm run build      # força outro endereço
+```
 
 ## Pendências do brief
 
