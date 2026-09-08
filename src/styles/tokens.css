@@ -376,7 +376,7 @@ ol {
   transition-delay: var(--reveal-delay, 0ms);
 }
 
-.reveal.is-visivel {
+.reveal[data-visivel] {
   opacity: 1;
   transform: none;
 }

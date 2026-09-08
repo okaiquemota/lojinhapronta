@@ -30,7 +30,6 @@ export const preco = {
 }
 
 export const hero = {
-  eyebrow: 'Loja virtual pra quem vende material digital',
   titulo: ['Sua loja pronta', 'pra vender'],
   subtitulo:
     'Pra professora e criadora que vende apostila, molde, matriz de bordado, planilha ou material de escola bíblica. O cliente compra por Pix ou cartão e recebe o arquivo na hora, sozinho. Você não manda nada no WhatsApp.',

@@ -37,11 +37,6 @@ export default function Hero() {
 
       <div className="container hero__interno">
         <div className="hero__texto">
-          <p className="hero__eyebrow">
-            <span className="hero__pontinho" aria-hidden="true" />
-            {hero.eyebrow}
-          </p>
-
           <h1 className="hero__titulo">
             {hero.titulo.map((linha, i) => (
               <span className="hero__linha" key={linha}>
@@ -80,10 +75,6 @@ export default function Hero() {
           <MaqueteLoja />
         </div>
       </div>
-
-      <a className="hero__rolar" href="#beneficios" aria-label="Rolar para os benefícios">
-        <span />
-      </a>
     </section>
   )
 }

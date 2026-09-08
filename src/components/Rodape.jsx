@@ -19,9 +19,14 @@ export default function Rodape() {
           <a href="#contato">Contato</a>
         </nav>
 
-        <p className="rodape__legal">
-          © {new Date().getFullYear()} {marca.nome} · WhatsApp {marca.whatsappVisivel}
-        </p>
+        <div className="rodape__legal">
+          <p>
+            © {new Date().getFullYear()} {marca.nome} · WhatsApp {marca.whatsappVisivel}
+          </p>
+          <p className="rodape__movcode">
+            Desenvolvido por <strong>MovCode</strong>
+          </p>
+        </div>
       </div>
     </footer>
   )

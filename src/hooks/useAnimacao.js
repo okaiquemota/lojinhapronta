@@ -34,8 +34,13 @@ function pegarObservador() {
 }
 
 /**
- * Devolve uma ref. Quando o elemento entra na tela, ganha `is-visivel`.
- * Sem estado no React: a classe entra direto no DOM, então não re-renderiza.
+ * Devolve uma ref. Quando o elemento entra na tela, ganha `data-visivel`.
+ *
+ * É atributo, não classe, de propósito: o `className` desses elementos é
+ * controlado pelo React, e qualquer re-render (abrir um item do FAQ, por
+ * exemplo) reescreve o atributo inteiro e apagaria uma classe posta por fora.
+ * O React não gerencia `data-visivel`, então ele sobrevive ao re-render — e a
+ * gente continua sem disparar renderização só pra revelar um elemento.
  */
 export function useReveal() {
   const ref = useRef(null)
@@ -45,12 +50,12 @@ export function useReveal() {
     if (!el) return
 
     if (prefereMenosMovimento() || !('IntersectionObserver' in window)) {
-      el.classList.add('is-visivel')
+      el.dataset.visivel = 'true'
       return
     }
 
     const observador = pegarObservador()
-    inscritos.set(el, () => el.classList.add('is-visivel'))
+    inscritos.set(el, () => (el.dataset.visivel = 'true'))
     observador.observe(el)
 
     return () => {

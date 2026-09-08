@@ -304,40 +304,6 @@
   align-items: center;
 }
 
-.hero__eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-  padding: 0.45rem 1rem 0.45rem 0.75rem;
-  border-radius: var(--r-pill);
-  background: rgba(255, 255, 255, 0.07);
-  border: 1px solid rgba(255, 255, 255, 0.13);
-  font-size: var(--t-sm);
-  font-weight: 550;
-  color: var(--azul-200);
-  margin-bottom: 1.6rem;
-  animation: sobe 0.8s var(--mola) both;
-}
-
-.hero__pontinho {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--coral-500);
-  box-shadow: 0 0 0 0 rgba(255, 107, 91, 0.6);
-  animation: pulsa 2.4s ease-out infinite;
-}
-
-@keyframes pulsa {
-  0% {
-    box-shadow: 0 0 0 0 rgba(255, 107, 91, 0.55);
-  }
-  70%,
-  100% {
-    box-shadow: 0 0 0 11px rgba(255, 107, 91, 0);
-  }
-}
-
 .hero__titulo {
   font-size: var(--t-4xl);
   font-weight: 600;
@@ -444,52 +410,9 @@
   animation-delay: 0.42s;
 }
 
-.hero__rolar {
-  position: absolute;
-  left: 50%;
-  bottom: 1.75rem;
-  transform: translateX(-50%);
-  width: 26px;
-  height: 42px;
-  border: 1.5px solid rgba(255, 255, 255, 0.28);
-  border-radius: var(--r-pill);
-  display: none;
-  place-items: start center;
-  padding-top: 8px;
-  opacity: 0;
-  animation: sobe 1s var(--suave) both;
-  animation-delay: 1.4s;
-}
-
-.hero__rolar span {
-  width: 3px;
-  height: 7px;
-  border-radius: 2px;
-  background: var(--coral-500);
-  animation: rolinha 1.9s ease-in-out infinite;
-}
-
-@keyframes rolinha {
-  0%,
-  100% {
-    transform: translateY(0);
-    opacity: 1;
-  }
-  55% {
-    transform: translateY(15px);
-    opacity: 0.2;
-  }
-  56% {
-    opacity: 0;
-  }
-}
-
 @media (min-width: 980px) {
   .hero__interno {
     grid-template-columns: 1.12fr 0.88fr;
-  }
-  .hero__rolar {
-    display: grid;
   }
 }
 
@@ -974,7 +897,7 @@
   transition-delay: calc(var(--i) * 55ms + 120ms);
 }
 
-.pacote__grupo.is-visivel .pacote__itens li {
+.pacote__grupo[data-visivel] .pacote__itens li {
   opacity: 1;
   transform: none;
 }
@@ -1568,7 +1491,7 @@ a.vitrine__card:hover .vitrine__nome svg {
   transition: opacity 0.5s var(--suave), transform 0.55s var(--mola);
   transition-delay: calc(var(--i) * 60ms + 200ms);
 }
-.preco__moldura.is-visivel .preco__lista li {
+.preco__moldura[data-visivel] .preco__lista li {
   opacity: 1;
   transform: none;
 }
@@ -1893,10 +1816,25 @@ a.vitrine__card:hover .vitrine__nome svg {
 }
 
 .rodape__legal {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1.5rem;
   width: 100%;
   padding-top: 1.5rem;
   border-top: 1px solid rgba(255, 255, 255, 0.07);
   font-size: var(--t-xs);
+}
+
+/* crédito da marca-mãe: presente, sem competir com a Lojinha Pronta */
+.rodape__movcode {
+  letter-spacing: 0.02em;
+}
+
+.rodape__movcode strong {
+  font-weight: 650;
+  color: var(--areia-50);
 }
 
 /* ---------------------------------------------------------
