@@ -405,9 +405,11 @@
 }
 
 .hero__numeros {
-  display: flex;
-  flex-wrap: wrap;
-  gap: clamp(1.5rem, 1rem + 2.5vw, 3rem);
+  /* grade em vez de flex: com flex-wrap o terceiro número caía sozinho
+     numa segunda linha e abria um buraco no meio do hero */
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 140px), 1fr));
+  gap: clamp(1.25rem, 1rem + 1.5vw, 2rem);
   margin-top: 2rem;
   padding-top: 1.5rem;
   border-top: 1px solid rgba(255, 255, 255, 0.13);
@@ -432,7 +434,6 @@
 .hero__numero span {
   display: block;
   margin-top: 0.25rem;
-  max-width: 20ch;
   font-size: var(--t-sm);
   line-height: 1.4;
   color: var(--azul-400);

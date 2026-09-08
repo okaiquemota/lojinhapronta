@@ -69,7 +69,7 @@ const og = `<!doctype html><html lang="pt-BR"><head><meta charset="utf-8">${font
       </span>
       Lojinha Pronta
     </div>
-    <h1>Sua loja pronta<br>pra vender<br><span class="coral">enquanto você dorme.</span></h1>
+    <h1>Sua loja pronta<br><span class="coral">pra vender</span></h1>
     <p>Pra quem vende apostila, molde e material digital.</p>
   </div>
   <div class="rodape">
