@@ -32,7 +32,7 @@ export const preco = {
 export const hero = {
   titulo: ['Sua loja pronta', 'pra vender'],
   subtitulo:
-    'Pra professora e criadora que vende apostila, molde, matriz de bordado, planilha ou material de escola bíblica. O cliente compra por Pix ou cartão e recebe o arquivo na hora, sozinho. Você não manda nada no WhatsApp.',
+    'Pra quem vende apostila, molde ou material de escola bíblica. O cliente paga por Pix ou cartão e recebe o arquivo na hora, sozinho.',
   ctaPrimario: 'Quero minha loja',
   ctaSecundario: 'Ver o pacote',
 }
