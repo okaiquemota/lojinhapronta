@@ -13,16 +13,46 @@
   inset: 0 0 auto 0;
   z-index: 100;
   color: var(--areia-50);
-  transition: background-color 0.4s var(--suave), box-shadow 0.4s var(--suave),
-    color 0.4s var(--suave), backdrop-filter 0.4s var(--suave);
+  transition: color 0.4s var(--suave);
 }
 
-.navbar--rolou {
+/*
+ * O vidro fosco mora numa camada própria, não na .navbar.
+ * backdrop-filter (como filter e transform) transforma o elemento em bloco de
+ * contenção dos filhos position: fixed — e o menu do celular é um deles. Com o
+ * filtro na navbar, o menu passava a se medir por ela (72px) em vez da tela e
+ * abria como uma tirinha depois que a página rolava.
+ */
+.navbar::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0;
   background: rgba(247, 245, 242, 0.86);
   -webkit-backdrop-filter: blur(16px) saturate(150%);
   backdrop-filter: blur(16px) saturate(150%);
-  color: var(--tinta);
   box-shadow: 0 1px 0 rgba(18, 24, 27, 0.07), 0 10px 30px rgba(10, 37, 49, 0.06);
+  transition: opacity 0.4s var(--suave);
+  pointer-events: none;
+}
+
+.navbar--rolou {
+  color: var(--tinta);
+}
+
+.navbar--rolou::before {
+  opacity: 1;
+}
+
+/* menu aberto: a faixa vira parte do painel, sem vidro nem página atrás */
+.navbar--aberto {
+  color: var(--areia-50);
+  background: var(--petroleo-900);
+}
+
+.navbar--aberto::before {
+  opacity: 0;
 }
 
 .navbar__interno {
@@ -113,11 +143,14 @@
   flex-shrink: 0;
 }
 
+/*
+ * As barras são absolutas, não itens de grade: com grid, as duas linhas
+ * dividiam os 44px do botão e os centros ficavam a 24px um do outro — longe
+ * demais pra fechar num X, e o ícone virava um ">" ao abrir.
+ */
 .navbar__hamburguer {
+  position: relative;
   margin-left: auto;
-  display: grid;
-  place-items: center;
-  gap: 5px;
   width: 2.75rem;
   height: 2.75rem;
   border-radius: 10px;
@@ -129,20 +162,32 @@
 }
 
 .navbar__hamburguer span {
-  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
   width: 20px;
   height: 2px;
+  margin: -1px 0 0 -10px;
   border-radius: 2px;
   background: currentColor;
-  transition: transform 0.4s var(--mola), opacity 0.25s var(--suave);
+  transition: transform 0.4s var(--mola);
 }
 
+.navbar__hamburguer span:first-child {
+  transform: translateY(-4px);
+}
+
+.navbar__hamburguer span:last-child {
+  transform: translateY(4px);
+}
+
+/* abertas, as duas voltam ao centro e cruzam */
 .navbar--aberto .navbar__hamburguer span:first-child {
-  transform: translateY(3.5px) rotate(45deg);
+  transform: rotate(45deg);
 }
 
 .navbar--aberto .navbar__hamburguer span:last-child {
-  transform: translateY(-3.5px) rotate(-45deg);
+  transform: rotate(-45deg);
 }
 
 .navbar__mobile {
@@ -413,6 +458,14 @@
 @media (min-width: 980px) {
   .hero__interno {
     grid-template-columns: 1.12fr 0.88fr;
+  }
+}
+
+/* No celular o hero é só texto e CTA: a maquete empurrava tudo pra baixo e
+   ainda rodava seis animações num aparelho que pode ser fraco. */
+@media (max-width: 979px) {
+  .hero__visual {
+    display: none;
   }
 }
 
@@ -1832,9 +1885,17 @@ a.vitrine__card:hover .vitrine__nome svg {
   letter-spacing: 0.02em;
 }
 
-.rodape__movcode strong {
+.rodape__movcode a {
   font-weight: 650;
   color: var(--areia-50);
+  border-bottom: 1px solid rgba(247, 245, 242, 0.3);
+  padding-bottom: 1px;
+  transition: color 0.25s var(--suave), border-color 0.25s var(--suave);
+}
+
+.rodape__movcode a:hover {
+  color: var(--coral-400);
+  border-bottom-color: var(--coral-400);
 }
 
 /* ---------------------------------------------------------
