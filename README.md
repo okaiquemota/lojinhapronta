@@ -26,6 +26,7 @@ tem texto de venda escrito por dentro.
 | Hospedagem parceira e link de afiliado | `src/data/parceiros.js` |
 | Cores, tipografia, espaçamento | `src/styles/tokens.css` |
 | Estilo de cada seção | `src/styles/app.css` |
+| Textos de SEO e de compartilhamento | `src/data/seo.js` |
 | Google Analytics / Pixel da Meta | `.env` (modelo em `.env.example`) |
 
 ### Ligar a seção de hospedagem
@@ -69,11 +70,43 @@ analytics existe.
 
 ## Deploy
 
-Vercel detecta Vite sozinho: build `npm run build`, saída `dist`.
+O endereço de publicação vive numa variável só: **`SITE_URL`**. Ela define de uma
+vez o `base` dos assets, o canonical, as tags de compartilhamento, o
+`robots.txt`, o `sitemap.xml` e o `CNAME`. Não existe URL escrita à mão em
+lugar nenhum — trocar de domínio é trocar essa variável.
 
-Antes do primeiro deploy, trocar em `index.html` e `src/data/site.js` o domínio
-`lojinhapronta.com.br` caso o registro saia com outro nome, e conferir
-`public/robots.txt` e `public/sitemap.xml`.
+```bash
+npm run build                                           # usa marca.dominio
+SITE_URL=https://okaiquemota.github.io/lojinhapronta npm run build
+```
+
+### GitHub Pages (configurado)
+
+`.github/workflows/deploy.yml` publica a cada push no **branch padrão** do
+repositório — o job se guia pelo `default_branch`, então funciona com qualquer
+nome de branch.
+
+Pra ligar: **Settings → Pages → Source: GitHub Actions**. O repositório precisa
+ser público (Pages em repositório privado exige plano pago).
+
+Sem configurar mais nada, o site sai em
+`https://okaiquemota.github.io/lojinhapronta/` e o build já ajusta o caminho dos
+assets e as URLs absolutas sozinho.
+
+Quando o domínio próprio estiver registrado:
+
+1. **Settings → Secrets and variables → Actions → Variables**, criar
+   `SITE_URL = https://lojinhapronta.com.br`
+2. **Settings → Pages → Custom domain**, apontar o domínio (o `CNAME` já é
+   gerado pelo build)
+3. No Registro.br, criar os registros `A` do apex pros IPs do GitHub Pages e um
+   `CNAME` de `www` pra `okaiquemota.github.io`
+4. Marcar **Enforce HTTPS** depois que o certificado for emitido
+
+### Vercel
+
+Também funciona sem mudar nada: detecta Vite sozinho, build `npm run build`,
+saída `dist`. Defina `SITE_URL` nas variáveis de ambiente do projeto.
 
 ## Pendências do brief
 

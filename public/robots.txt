@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://lojinhapronta.com.br/sitemap.xml
