@@ -38,7 +38,12 @@ jobs:
           SITE_URL: ${{ vars.SITE_URL || format('https://{0}.github.io/{1}', github.repository_owner, github.event.repository.name) }}
         run: npm run build
 
+      # enablement liga o Pages e troca a origem de "branch" pra "GitHub Actions".
+      # Sem isso, um repositório configurado pra publicar a partir do branch serve
+      # o index.html cru do código-fonte em vez do build, e a página fica em branco.
       - uses: actions/configure-pages@v5
+        with:
+          enablement: true
 
       - uses: actions/upload-pages-artifact@v3
         with:
