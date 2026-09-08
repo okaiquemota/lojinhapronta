@@ -80,6 +80,11 @@ Na Vercel não precisa configurar nada: sem `SITE_URL`, o build usa a
 `VERCEL_PROJECT_PRODUCTION_URL` que a própria plataforma expõe, então o preview
 do link no WhatsApp já funciona no endereço `.vercel.app`.
 
+Enquanto o endereço não for o de `marca.dominio`, a página sai com
+`noindex, nofollow` e o `robots.txt` bloqueia tudo — assim o Google não fatura o
+endereço provisório e não sobra migração de indexação depois. Isso vira
+`index, follow` sozinho quando `SITE_URL` apontar pro domínio definitivo.
+
 Quando o domínio próprio estiver registrado:
 
 1. No painel da Vercel, **Settings → Domains**, adicionar `lojinhapronta.com.br`

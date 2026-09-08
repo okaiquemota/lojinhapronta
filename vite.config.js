@@ -27,6 +27,14 @@ const { origin, pathname } = new URL(`${SITE_URL}/`)
 const BASE = pathname // '/' no domínio próprio, '/lojinhapronta/' no Pages de projeto
 const ehDominioProprio = !origin.endsWith('.github.io')
 
+/**
+ * O endereço definitivo é o declarado em marca.dominio. Qualquer outro
+ * (.vercel.app, preview, github.io) é provisório e não deve ser indexado:
+ * senão o Google fica com o endereço temporário fichado e, quando o domínio
+ * de verdade entrar, sobra trabalho de migração.
+ */
+const ehEnderecoDefinitivo = new URL(SITE_URL).hostname === new URL(marca.dominio).hostname
+
 const absoluta = (caminho) => `${SITE_URL}/${caminho.replace(/^\//, '')}`
 
 function meta(attrs, conteudo) {
@@ -77,6 +85,10 @@ function seoEArquivosDeRaiz() {
       return [
         { tag: 'title', children: seo.titulo, injectTo: 'head' },
         meta({ name: 'description' }, seo.descricao),
+        meta(
+          { name: 'robots' },
+          ehEnderecoDefinitivo ? 'index, follow, max-image-preview:large' : 'noindex, nofollow'
+        ),
         { tag: 'link', attrs: { rel: 'canonical', href: `${SITE_URL}/` }, injectTo: 'head' },
 
         meta({ property: 'og:type' }, 'website'),
@@ -107,7 +119,12 @@ function seoEArquivosDeRaiz() {
     generateBundle() {
       const emitir = (fileName, source) => this.emitFile({ type: 'asset', fileName, source })
 
-      emitir('robots.txt', `User-agent: *\nAllow: /\n\nSitemap: ${absoluta('sitemap.xml')}\n`)
+      emitir(
+        'robots.txt',
+        ehEnderecoDefinitivo
+          ? `User-agent: *\nAllow: /\n\nSitemap: ${absoluta('sitemap.xml')}\n`
+          : `# Endereço provisório — só o domínio definitivo é indexado.\nUser-agent: *\nDisallow: /\n`
+      )
 
       emitir(
         'sitemap.xml',
