@@ -82,7 +82,8 @@ export default function Portfolio() {
           <p className="eyebrow">Feito e no ar</p>
           <h2 className="secao__titulo">Loja de verdade, vendendo de verdade</h2>
           <p className="secao__lead">
-            Antes de vender pra você, eu montei pra mim. É a mesma estrutura que a sua loja vai ter.
+            Antes de vender pra você, eu montei pra mim. Vendo material digital todo dia — e foi
+            dessa loja que saiu cada decisão deste pacote.
           </p>
         </div>
 

@@ -17,8 +17,8 @@ npm run og       # regera a imagem de compartilhamento
 
 ## Onde mexer
 
-Praticamente tudo que muda com o tempo está em dois arquivos. Nenhum componente
-tem texto de venda escrito por dentro.
+Praticamente tudo que muda com o tempo está em dois arquivos. Os títulos e as
+chamadas de cada seção ainda moram no JSX do componente correspondente.
 
 | Quero mudar | Arquivo |
 |---|---|

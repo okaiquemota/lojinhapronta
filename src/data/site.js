@@ -181,9 +181,15 @@ export const portfolio = [
   {
     nome: 'Loja do Kiwi',
     descricao:
-      'Loja de materiais cristãos imprimíveis para crianças. Atividades, jogos e apostilas de escola bíblica entregues em PDF na hora do pagamento.',
-    tags: ['Material cristão infantil', 'Entrega automática', 'Pix e cartão'],
-    // Preencher com a URL real da Loja do Kiwi.
+      'Loja de material pedagógico digital: planejamento alinhado à BNCC, educação especial, inclusão e autismo. O arquivo é entregue em PDF na hora do pagamento.',
+    tags: ['Material pedagógico', 'Educação especial e inclusão', 'Entrega automática'],
+    /*
+     * A loja está no ar em https://lojadokiwi.com.br, mas hoje roda como
+     * vitrine estática com pagamento pela Kiwify — não no WordPress +
+     * WooCommerce que o FAQ desta página promete. Linkar agora levaria o
+     * visitante a uma loja que contradiz o que ele acabou de ler.
+     * Preencher a URL depois de migrar a Kiwi pro template.
+     */
     url: null,
     // Screenshot em public/portfolio/. Enquanto não existir, o card usa o
     // preview tipográfico — melhor isso do que imagem falsa no ar.
