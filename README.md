@@ -105,7 +105,10 @@ SITE_URL=https://exemplo.com.br npm run build      # força outro endereço
 
 ## Pendências do brief
 
-- [ ] Registrar `lojinhapronta.com.br` e conferir o @ no Instagram
+- [x] Registrar `lojinhapronta.com.br` — no ar, com `www` redirecionando (308)
+      para o apex e `SITE_URL` definido no Vercel, o que liberou a indexação
+- [ ] Conferir o @ no Instagram
 - [ ] Definir programa de afiliado de hospedagem → `src/data/parceiros.js`
-- [ ] URL da Loja do Kiwi + screenshot → `src/data/site.js` e `public/portfolio/`
+- [ ] Migrar a Loja do Kiwi para o template e então linká-la no portfólio
+      → `src/data/site.js` e `public/portfolio/`
 - [ ] Logo e paleta definitivos
