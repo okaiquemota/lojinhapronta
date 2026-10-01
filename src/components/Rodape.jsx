@@ -24,7 +24,7 @@ export default function Rodape() {
             © {new Date().getFullYear()} {marca.nome} · WhatsApp {marca.whatsappVisivel}
           </p>
           <p className="rodape__movcode">
-            Desenvolvido por{' '}
+            Um produto{' '}
             <a href="https://movcode.com.br" target="_blank" rel="noopener noreferrer">
               MovCode
             </a>
